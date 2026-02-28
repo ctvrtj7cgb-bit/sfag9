@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SFA Grade 9 · Batch 2025–2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, get, push, onValue, update }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PASTE YOUR FIREBASE CONFIG BELOW                           ║
+// ║  1. Go to https://console.firebase.google.com               ║
+// ║  2. Create project → Add Web App → Copy firebaseConfig      ║
+// ║  3. Realtime Database → Create database (start in test mode) ║
+// ╚══════════════════════════════════════════════════════════════╝
+const firebaseConfig = {
+  apiKey:            "PASTE_apiKey_HERE",
+  authDomain:        "PASTE_authDomain_HERE",
+  databaseURL:       "PASTE_databaseURL_HERE",
+  projectId:         "PASTE_projectId_HERE",
+  storageBucket:     "PASTE_storageBucket_HERE",
+  messagingSenderId: "PASTE_messagingSenderId_HERE",
+  appId:             "PASTE_appId_HERE"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+window._fb = { db, ref, set, get, push, onValue, update };
+window._fbReady = true;
+window.dispatchEvent(new Event('fb-ready'));
+</script>
+
+<style>
+/* ===== CSS VARIABLES / THEMES ===== */
+:root{
+  --ac:#d4507a;--ac2:#f08fb0;--bg:#fff2f6;--card:#fff;
+  --tx:#2a1520;--tx2:#8a5570;--bd:#f5ccd8;--nav:#fff;
+  --sh:rgba(212,80,122,.13);--cme:#d4507a;--coth:#fce4ec;
+  --inbg:#fff7fa;--ov:rgba(42,21,32,.52);--pill:#fce4ec;--pt:#d4507a;--avbg:#f5ccd8;
+}
+[data-theme="blue"]{--ac:#3a6fd8;--ac2:#7aaaf5;--bg:#f0f4ff;--card:#fff;--tx:#1a2540;--tx2:#4a6088;--bd:#c5d5f5;--nav:#fff;--sh:rgba(58,111,216,.13);--cme:#3a6fd8;--coth:#dce8fb;--inbg:#f5f8ff;--pill:#dce8fb;--pt:#3a6fd8;--avbg:#c5d5f5;}
+[data-theme="green"]{--ac:#2e9e65;--ac2:#6dcfa0;--bg:#f0faf5;--card:#fff;--tx:#1a3325;--tx2:#3a6850;--bd:#b5e5cc;--nav:#fff;--sh:rgba(46,158,101,.13);--cme:#2e9e65;--coth:#d5f2e5;--inbg:#f5fdf8;--pill:#d5f2e5;--pt:#2e9e65;--avbg:#b5e5cc;}
+[data-theme="purple"]{--ac:#7c4dd8;--ac2:#b590f5;--bg:#f5f0ff;--card:#fff;--tx:#221540;--tx2:#604888;--bd:#d8c5f5;--nav:#fff;--sh:rgba(124,77,216,.13);--cme:#7c4dd8;--coth:#ecdeff;--inbg:#faf5ff;--pill:#ecdeff;--pt:#7c4dd8;--avbg:#d8c5f5;}
+[data-theme="orange"]{--ac:#e06b20;--ac2:#f5a870;--bg:#fff8f0;--card:#fff;--tx:#3a1a08;--tx2:#884a20;--bd:#f5d5b0;--nav:#fff;--sh:rgba(224,107,32,.13);--cme:#e06b20;--coth:#fde5cc;--inbg:#fffaf5;--pill:#fde5cc;--pt:#e06b20;--avbg:#f5d5b0;}
+[data-theme="dark"]{--ac:#e06b9a;--ac2:#f4a7c3;--bg:#160e18;--card:#22142c;--tx:#f5e8f0;--tx2:#c090b0;--bd:#3d2050;--nav:#1c1025;--sh:rgba(0,0,0,.4);--cme:#e06b9a;--coth:#30184a;--inbg:#1c1025;--ov:rgba(0,0,0,.72);--pill:#30184a;--pt:#e06b9a;--avbg:#3d2050;}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s}
+.screen{display:none;min-height:100vh}
+.screen.on{display:flex}
+
+/* ── AUTH ── */
+#auth-sc{align-items:center;justify-content:center;padding:1.25rem;background:var(--bg)}
+.auth-card{background:var(--card);border:1.5px solid var(--bd);border-radius:28px;padding:2.5rem 2rem;max-width:440px;width:100%;box-shadow:0 10px 48px var(--sh)}
+.brand{text-align:center;margin-bottom:1.75rem}
+.brand-ring{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--ac2));display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin:0 auto .65rem}
+.brand h1{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:900;color:var(--ac)}
+.brand p{font-size:.8rem;color:var(--tx2);margin-top:.2rem}
+.tab-row{display:flex;background:var(--bg);border-radius:14px;padding:.3rem;gap:.3rem;margin-bottom:1.5rem}
+.tab-btn{flex:1;padding:.52rem;border:none;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.87rem;cursor:pointer;background:transparent;color:var(--tx2);transition:all .2s}
+.tab-btn.on{background:var(--ac);color:#fff}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.73rem;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.33rem}
+.field input,.field select{width:100%;padding:.72rem 1rem;border:1.5px solid var(--bd);border-radius:12px;font-family:'Nunito',sans-serif;font-size:.92rem;background:var(--inbg);color:var(--tx);outline:none;transition:border .2s}
+.field input:focus,.field select:focus{border-color:var(--ac)}
+.av-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
+.av-prev{width:62px;height:62px;border-radius:50%;background:var(--avbg);display:flex;align-items:center;justify-content:center;font-size:1.6rem;overflow:hidden;flex-shrink:0;border:2px solid var(--bd)}
+.av-prev img{width:100%;height:100%;object-fit:cover}
+.av-up-btn{padding:.5rem .9rem;border:1.5px dashed var(--ac);border-radius:10px;background:transparent;color:var(--ac);font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;transition:background .2s}
+.av-up-btn:hover{background:var(--pill)}
+.btn-main{width:100%;padding:.84rem;background:var(--ac);color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.97rem;cursor:pointer;transition:opacity .2s,transform .15s;margin-top:.2rem}
+.btn-main:hover{opacity:.88;transform:translateY(-1px)}
+.err-msg{color:#e04444;font-size:.8rem;margin-top:.6rem;display:none;font-weight:600}
+.forgot-link{text-align:center;margin-top:.9rem}
+.forgot-link button{background:none;border:none;color:var(--ac);font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;text-decoration:underline}
+
+/* ── NAV ── */
+nav{background:var(--nav);border-bottom:1.5px solid var(--bd);padding:.65rem 1.1rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 14px var(--sh)}
+.nav-logo{font-family:'Fraunces',serif;font-weight:900;font-size:1.12rem;color:var(--ac);flex-shrink:0}
+.nav-user{display:flex;align-items:center;gap:.5rem;flex:1;min-width:0}
+.nav-av{width:32px;height:32px;border-radius:50%;background:var(--avbg);display:flex;align-items:center;justify-content:center;font-size:.85rem;overflow:hidden;flex-shrink:0;border:2px solid var(--bd)}
+.nav-av img{width:100%;height:100%;object-fit:cover}
+.nav-nm{font-size:.82rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-badge{font-size:.7rem;background:var(--pill);color:var(--pt);border-radius:20px;padding:.14rem .52rem;font-weight:700;flex-shrink:0}
+.nav-r{display:flex;align-items:center;gap:.4rem;flex-shrink:0;position:relative}
+.ic-btn{background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;padding:.35rem .62rem;cursor:pointer;font-size:.8rem;color:var(--tx);font-family:'Nunito',sans-serif;font-weight:700;white-space:nowrap;transition:border-color .2s}
+.ic-btn:hover{border-color:var(--ac)}
+
+/* Theme picker */
+.t-picker{display:none;position:absolute;right:0;top:2.6rem;background:var(--card);border:1.5px solid var(--bd);border-radius:16px;padding:.65rem;z-index:200;box-shadow:0 8px 28px var(--sh);min-width:162px}
+.t-picker.on{display:block}
+.t-opt{display:flex;align-items:center;gap:.55rem;padding:.38rem .52rem;border-radius:8px;cursor:pointer;font-size:.83rem;font-weight:600;transition:background .15s}
+.t-opt:hover{background:var(--bg)}
+.t-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+
+/* Section tabs */
+.s-tabs{display:flex;border-bottom:1.5px solid var(--bd);background:var(--nav);padding:0 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.s-tab{padding:.64rem 1rem;border:none;background:transparent;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.87rem;color:var(--tx2);border-bottom:2.5px solid transparent;white-space:nowrap;transition:all .2s}
+.s-tab.on{color:var(--ac);border-bottom-color:var(--ac)}
+
+/* Pages */
+.page{display:none;padding:1.1rem;max-width:920px;margin:0 auto;width:100%;animation:fi .25s ease}
+.page.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+/* Home hero */
+.hero{background:linear-gradient(130deg,var(--ac) 0%,var(--ac2) 100%);border-radius:22px;padding:2rem 1.5rem;color:#fff;text-align:center;margin-bottom:1.4rem;position:relative;overflow:hidden}
+.hero::before{content:'🎓';position:absolute;right:1.2rem;top:1rem;font-size:3.5rem;opacity:.18;pointer-events:none}
+.hero h1{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:900;margin-bottom:.4rem}
+.hero p{opacity:.9;font-size:.88rem}
+
+/* Section cards grid */
+.s-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:1rem}
+.s-card{background:var(--card);border:1.5px solid var(--bd);border-radius:18px;padding:1.25rem;text-align:center;cursor:pointer;transition:all .22s;box-shadow:0 3px 12px var(--sh)}
+.s-card:hover{transform:translateY(-4px);border-color:var(--ac);box-shadow:0 8px 24px var(--sh)}
+.s-card .big{font-family:'Fraunces',serif;font-size:2.9rem;font-weight:900;color:var(--ac);line-height:1}
+.s-card .nm{font-size:.84rem;color:var(--tx2);margin-top:.22rem;font-weight:600}
+.s-card .bdg{font-size:.73rem;background:var(--pill);color:var(--pt);border-radius:20px;padding:.2rem .65rem;margin-top:.55rem;display:inline-block;font-weight:700}
+
+/* Section view */
+.back-btn{background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;padding:.38rem .8rem;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--tx2);margin-bottom:1rem;transition:border-color .2s}
+.back-btn:hover{border-color:var(--ac)}
+.sv-hdr{display:flex;align-items:center;gap:1rem;margin-bottom:1.1rem;flex-wrap:wrap}
+.sv-hdr .bigl{font-family:'Fraunces',serif;font-size:3rem;font-weight:900;color:var(--ac);line-height:1}
+.sv-hdr h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700}
+.sv-hdr p{color:var(--tx2);font-size:.8rem}
+.in-tabs{display:flex;gap:.45rem;margin-bottom:1.1rem;flex-wrap:wrap}
+.in-tab{padding:.42rem .95rem;border:1.5px solid var(--bd);border-radius:20px;background:var(--card);cursor:pointer;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--tx2);transition:all .2s}
+.in-tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+/* Rename zone — button first, confirm modal */
+.rn-zone{margin-bottom:1rem}
+.rn-trigger{padding:.48rem 1rem;background:var(--pill);color:var(--pt);border:1.5px solid var(--bd);border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;transition:all .2s}
+.rn-trigger:hover{border-color:var(--ac)}
+.rn-form{display:none;margin-top:.65rem;background:var(--bg);border:1.5px solid var(--bd);border-radius:14px;padding:.9rem 1rem}
+.rn-form p{font-size:.77rem;color:var(--tx2);margin-bottom:.55rem}
+.rn-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.rn-row input{flex:1;min-width:130px;padding:.52rem .85rem;border:1.5px solid var(--bd);border-radius:9px;font-family:'Nunito',sans-serif;font-size:.88rem;background:var(--inbg);color:var(--tx);outline:none}
+.rn-row input:focus{border-color:var(--ac)}
+.rn-save{padding:.52rem 1rem;background:var(--ac);color:#fff;border:none;border-radius:9px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem}
+.rn-cancel{padding:.52rem .9rem;background:var(--bg);color:var(--tx2);border:1.5px solid var(--bd);border-radius:9px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem}
+
+/* Memories */
+.mem-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;margin-bottom:1.4rem}
+.mem-card{background:var(--card);border:1.5px solid var(--bd);border-radius:15px;overflow:hidden;box-shadow:0 2px 10px var(--sh);transition:transform .2s}
+.mem-card:hover{transform:translateY(-3px)}
+.mem-img{width:100%;height:155px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden}
+.mem-img img{width:100%;height:100%;object-fit:cover}
+.mem-body{padding:.8rem}
+.mem-body h4{font-size:.87rem;font-weight:700;margin-bottom:.2rem}
+.mem-body p{font-size:.77rem;color:var(--tx2)}
+.mem-by{display:flex;align-items:center;gap:.4rem;margin-top:.45rem;font-size:.7rem;color:var(--tx2)}
+.mini-av{width:20px;height:20px;border-radius:50%;background:var(--avbg);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.6rem}
+.mini-av img{width:100%;height:100%;object-fit:cover}
+.add-mem-btn{background:var(--ac);color:#fff;border:none;border-radius:12px;padding:.66rem 1.1rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.87rem;margin-bottom:1.1rem}
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--tx2)}
+.empty .ei{font-size:2.8rem;margin-bottom:.7rem}
+.empty p{font-size:.87rem}
+
+/* Chat */
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 280px);min-height:300px}
+.chat-msgs{flex:1;overflow-y:auto;padding:.8rem;display:flex;flex-direction:column;gap:.5rem;background:var(--bg);border-radius:14px 14px 0 0;border:1.5px solid var(--bd)}
+.msg-row{display:flex;gap:.45rem;align-items:flex-end}
+.msg-row.me{flex-direction:row-reverse}
+.msg-av2{width:28px;height:28px;border-radius:50%;background:var(--avbg);display:flex;align-items:center;justify-content:center;font-size:.68rem;overflow:hidden;flex-shrink:0;border:1.5px solid var(--bd)}
+.msg-av2 img{width:100%;height:100%;object-fit:cover}
+.msg-av-sp{width:28px;flex-shrink:0}
+.msg-ct{display:flex;flex-direction:column;max-width:70%}
+.msg-row.me .msg-ct{align-items:flex-end}
+.msg-nm{font-size:.68rem;color:var(--tx2);font-weight:700;margin-bottom:.14rem;padding:0 .28rem}
+.msg-bub{padding:.55rem .85rem;border-radius:14px;font-size:.88rem;line-height:1.45;word-break:break-word}
+.msg-row.me .msg-bub{background:var(--cme);color:#fff;border-bottom-right-radius:3px}
+.msg-row.other .msg-bub{background:var(--coth);color:var(--tx);border-bottom-left-radius:3px}
+.msg-time{font-size:.65rem;color:var(--tx2);padding:0 .28rem;margin-top:.1rem}
+.chat-inp-row{display:flex;gap:.5rem;padding:.7rem;background:var(--card);border:1.5px solid var(--bd);border-top:none;border-radius:0 0 14px 14px}
+.chat-inp-row input{flex:1;padding:.62rem .9rem;border:1.5px solid var(--bd);border-radius:10px;font-family:'Nunito',sans-serif;font-size:.9rem;background:var(--inbg);color:var(--tx);outline:none}
+.chat-inp-row input:focus{border-color:var(--ac)}
+.send-btn{background:var(--ac);color:#fff;border:none;border-radius:10px;padding:.62rem 1rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.87rem}
+
+/* Modals */
+.modal-ov{display:none;position:fixed;inset:0;background:var(--ov);z-index:200;align-items:center;justify-content:center;padding:1rem}
+.modal-ov.on{display:flex}
+.modal{background:var(--card);border-radius:22px;padding:1.75rem 1.5rem;max-width:480px;width:100%;box-shadow:0 14px 55px rgba(0,0,0,.2)}
+.modal h3{font-family:'Fraunces',serif;font-size:1.25rem;margin-bottom:1rem}
+.modal-btns{display:flex;gap:.7rem;margin-top:1rem}
+.btn-sec{flex:1;padding:.7rem;background:var(--bg);color:var(--tx2);border:1.5px solid var(--bd);border-radius:11px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem}
+.btn-ok{flex:1;padding:.7rem;background:var(--ac);color:#fff;border:none;border-radius:11px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem}
+
+/* Admin */
+#admin-sc{align-items:center;justify-content:center;padding:1rem;background:var(--bg)}
+.admin-card{background:var(--card);border:1.5px solid var(--bd);border-radius:24px;padding:2rem 1.75rem;max-width:540px;width:100%;box-shadow:0 10px 40px var(--sh)}
+.admin-card h2{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:900;color:var(--ac);margin-bottom:1.2rem}
+.au-row{display:flex;align-items:center;gap:.7rem;padding:.72rem;background:var(--bg);border-radius:12px;margin-bottom:.5rem;flex-wrap:wrap}
+.au-av{width:38px;height:38px;border-radius:50%;background:var(--avbg);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;border:1.5px solid var(--bd)}
+.au-av img{width:100%;height:100%;object-fit:cover}
+.au-info{flex:1;min-width:0}
+.au-info .aname{font-weight:700;font-size:.88rem}
+.au-info .asec{font-size:.74rem;color:var(--tx2)}
+.rst-btn{padding:.36rem .72rem;background:var(--pill);color:var(--pt);border:none;border-radius:8px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.77rem}
+.pw-badge{font-size:.78rem;background:#d5f2e5;color:#2e9e65;border-radius:8px;padding:.2rem .52rem;font-weight:700}
+.admin-back{background:none;border:1.5px solid var(--bd);border-radius:9px;padding:.38rem .78rem;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--tx2);margin-bottom:1rem}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+
+@media(max-width:520px){
+  .hero h1{font-size:1.42rem}.s-grid{grid-template-columns:1fr 1fr}
+  .page{padding:.85rem}.auth-card{padding:1.75rem 1.2rem}
+  .chat-wrap{height:calc(100vh-310px)}.nav-logo{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ AUTH ══ -->
+<div id="auth-sc" class="screen on">
+  <div class="auth-card">
+    <div class="brand">
+      <div class="brand-ring">🌸</div>
+      <h1>SFA Grade 9</h1>
+      <p>Batch 2025–2026 · Saint Francis Academy</p>
+    </div>
+    <div class="tab-row">
+      <button class="tab-btn on" onclick="authTab('login')">Sign In</button>
+      <button class="tab-btn" onclick="authTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="lf">
+      <div class="field"><label>Full Name</label><input id="li-n" type="text" placeholder="e.g. Maria Santos"/></div>
+      <div class="field"><label>Password</label><input id="li-p" type="password" placeholder="Your password"/></div>
+      <button class="btn-main" onclick="doLogin()">Sign In</button>
+      <div class="err-msg" id="li-e"></div>
+      <div class="forgot-link"><button onclick="openForgot()">Forgot your password?</button></div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="sf" style="display:none">
+      <div class="av-row">
+        <div class="av-prev" id="su-av">🙂</div>
+        <div>
+          <div style="font-size:.8rem;font-weight:700;color:var(--tx2);margin-bottom:.35rem">Profile Picture</div>
+          <button class="av-up-btn" onclick="document.getElementById('su-af').click()">📷 Choose Photo</button>
+          <input id="su-af" type="file" accept="image/*" style="display:none" onchange="prevAv(this,'su-av')"/>
+        </div>
+      </div>
+      <div class="field"><label>Full Name</label><input id="su-n" type="text" placeholder="First and Last name"/></div>
+      <div class="field"><label>Password</label><input id="su-p" type="password" placeholder="Choose a password"/></div>
+      <div class="field">
+        <label>Your Section</label>
+        <select id="su-s">
+          <option value="">— Choose your section —</option>
+          <option value="A">Grade 9-A</option>
+          <option value="B">Grade 9-B</option>
+          <option value="C">Grade 9-C</option>
+          <option value="D">Grade 9-D</option>
+        </select>
+      </div>
+      <button class="btn-main" onclick="doSignup()">Create Account</button>
+      <div class="err-msg" id="su-e"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="app-sc" class="screen" style="flex-direction:column">
+  <nav>
+    <div class="nav-logo">🌸 SFA G9</div>
+    <div class="nav-user">
+      <div class="nav-av" id="nv-av">🙂</div>
+      <span class="nav-nm" id="nv-nm"></span>
+      <span class="nav-badge" id="nv-bdg"></span>
+    </div>
+    <div class="nav-r">
+      <button class="ic-btn" onclick="showAdmin()" title="Admin Panel">🔑</button>
+      <button class="ic-btn" onclick="toggleThemePicker()">🎨</button>
+      <div class="t-picker" id="t-picker">
+        <div class="t-opt" onclick="setTheme('')"><div class="t-dot" style="background:#d4507a"></div>Pink Rose</div>
+        <div class="t-opt" onclick="setTheme('blue')"><div class="t-dot" style="background:#3a6fd8"></div>Ocean Blue</div>
+        <div class="t-opt" onclick="setTheme('green')"><div class="t-dot" style="background:#2e9e65"></div>Mint Green</div>
+        <div class="t-opt" onclick="setTheme('purple')"><div class="t-dot" style="background:#7c4dd8"></div>Lavender</div>
+        <div class="t-opt" onclick="setTheme('orange')"><div class="t-dot" style="background:#e06b20"></div>Sunset</div>
+        <div class="t-opt" onclick="setTheme('dark')"><div class="t-dot" style="background:#22142c;border:1px solid #e06b9a"></div>Night</div>
+      </div>
+      <button class="ic-btn" onclick="doLogout()">Sign Out</button>
+    </div>
+  </nav>
+
+  <div class="s-tabs" id="s-tabs">
+    <button class="s-tab on" onclick="goHome()">🏠 Home</button>
+    <button class="s-tab" onclick="openSec('A')" id="st-A">9-A</button>
+    <button class="s-tab" onclick="openSec('B')" id="st-B">9-B</button>
+    <button class="s-tab" onclick="openSec('C')" id="st-C">9-C</button>
+    <button class="s-tab" onclick="openSec('D')" id="st-D">9-D</button>
+  </div>
+
+  <!-- HOME PAGE -->
+  <div class="page on" id="pg-home">
+    <div class="hero">
+      <h1>Batch 2025–2026 🎓</h1>
+      <p>Saint Francis Academy · Grade 9 · Forever remembered</p>
+    </div>
+    <div class="s-grid">
+      <div class="s-card" onclick="openSec('A')"><div class="big">A</div><div class="nm" id="hn-A">Grade 9-A</div><div class="bdg" id="hb-A">0 memories</div></div>
+      <div class="s-card" onclick="openSec('B')"><div class="big">B</div><div class="nm" id="hn-B">Grade 9-B</div><div class="bdg" id="hb-B">0 memories</div></div>
+      <div class="s-card" onclick="openSec('C')"><div class="big">C</div><div class="nm" id="hn-C">Grade 9-C</div><div class="bdg" id="hb-C">0 memories</div></div>
+      <div class="s-card" onclick="openSec('D')"><div class="big">D</div><div class="nm" id="hn-D">Grade 9-D</div><div class="bdg" id="hb-D">0 memories</div></div>
+    </div>
+  </div>
+
+  <!-- SECTION PAGE -->
+  <div class="page" id="pg-sec">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="sv-hdr">
+      <div class="bigl" id="sv-l">A</div>
+      <div><h2 id="sv-nm">Grade 9-A</h2><p id="sv-sub">Section A · Batch 2025–2026</p></div>
+    </div>
+    <div class="in-tabs">
+      <button class="in-tab on" onclick="innerTab('mem')">📸 Memories</button>
+      <button class="in-tab" onclick="innerTab('chat')">💬 Chat</button>
+    </div>
+
+    <!-- MEMORIES -->
+    <div id="sv-mem">
+      <button class="add-mem-btn" onclick="openAddMem()">+ Add Memory</button>
+      <div class="mem-grid" id="mem-grid"></div>
+    </div>
+
+    <!-- CHAT -->
+    <div id="sv-chat" style="display:none">
+      <!-- Rename: button first, form reveals on click, confirm modal before saving -->
+      <div class="rn-zone" id="rn-zone" style="display:none">
+        <button class="rn-trigger" id="rn-trigger" onclick="toggleRenameForm()">✏️ Rename Section</button>
+        <div class="rn-form" id="rn-form">
+          <p>Give your section a custom name (shown inside the chat header). The <strong>navigation tab</strong> will always remain <strong id="rn-tab-hint">9-A</strong>.</p>
+          <div class="rn-row">
+            <input id="rn-input" type="text" placeholder="e.g. 9-Carmelotes"/>
+            <button class="rn-save" onclick="askRenameConfirm()">Save</button>
+            <button class="rn-cancel" onclick="toggleRenameForm()">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div class="chat-wrap">
+        <div class="chat-msgs" id="chat-msgs"></div>
+        <div class="chat-inp-row">
+          <input id="chat-in" type="text" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendMsg()"/>
+          <button class="send-btn" onclick="sendMsg()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div id="admin-sc" class="screen" style="display:none;align-items:center;justify-content:center;padding:1rem;background:var(--bg)">
+  <div class="admin-card">
+    <button class="admin-back" onclick="hideAdmin()">← Back to Site</button>
+    <h2>🔑 Admin · Reset Passwords</h2>
+    <div id="admin-login">
+      <div class="field"><label>Admin Password</label><input id="admin-pw" type="password" placeholder="Enter admin password"/></div>
+      <button class="btn-main" style="width:auto;padding:.6rem 1.25rem" onclick="adminLogin()">Unlock</button>
+      <div class="err-msg" id="admin-e"></div>
+    </div>
+    <div id="admin-panel" style="display:none">
+      <div id="admin-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Memory Modal -->
+<div class="modal-ov" id="mem-modal">
+  <div class="modal">
+    <h3>📸 Add a Memory</h3>
+    <div class="field"><label>Title</label><input id="m-title" type="text" placeholder="e.g. Field Trip Day!"/></div>
+    <div class="field"><label>Description</label><input id="m-desc" type="text" placeholder="A sweet caption…"/></div>
+    <div class="field"><label>Picture (optional)</label><input id="m-file" type="file" accept="image/*"/></div>
+    <div class="modal-btns">
+      <button class="btn-sec" onclick="closeMemModal()">Cancel</button>
+      <button class="btn-ok" onclick="saveMem()">Save 💾</button>
+    </div>
+  </div>
+</div>
+
+<!-- Rename Confirm Modal -->
+<div class="modal-ov" id="rn-confirm">
+  <div class="modal" style="max-width:380px;text-align:center">
+    <h3>Rename Section?</h3>
+    <p style="font-size:.87rem;color:var(--tx2);margin-bottom:1rem">Rename to <strong id="rn-preview"></strong>?<br/>Everyone in this section will see this name.</p>
+    <div class="modal-btns">
+      <button class="btn-sec" onclick="closeRnConfirm()">Cancel</button>
+      <button class="btn-ok" onclick="confirmRename()">Yes, Rename</button>
+    </div>
+  </div>
+</div>
+
+<!-- Forgot Password Modal -->
+<div class="modal-ov" id="forgot-modal">
+  <div class="modal">
+    <h3>🔒 Forgot Password?</h3>
+    <p style="font-size:.87rem;color:var(--tx2);margin-bottom:.9rem">Passwords are reset by an admin. Ask your class admin or teacher to open the <strong>🔑 Admin panel</strong> and reset your password.</p>
+    <div style="font-size:.81rem;color:var(--tx2);background:var(--bg);border-radius:10px;padding:.75rem;line-height:1.6">
+      💡 Your <strong>username</strong> is your <strong>full name</strong>, exactly as you typed it when you signed up.
+    </div>
+    <div class="modal-btns"><button class="btn-ok" onclick="closeForgot()">Got it!</button></div>
+  </div>
+</div>
+
+<script>
+/* ── WAIT FOR FIREBASE ── */
+let FB=null, DB=null;
+function waitFB(cb){
+  if(window._fbReady){FB=window._fb;DB=FB.db;cb();}
+  else window.addEventListener('fb-ready',()=>{FB=window._fb;DB=FB.db;cb();},{once:true});
+}
+
+/* ── STATE ── */
+let cu=null, curSec=null, chatUnsub=null;
+let secNames={A:'Grade 9-A',B:'Grade 9-B',C:'Grade 9-C',D:'Grade 9-D'};
+let pendingRename='';
+let suAv=null;
+const ADMIN_PW='sfa-admin-2026'; // ← Change this to your secret admin password!
+
+/* ── FB HELPERS ── */
+const fbR=p=>FB.ref(DB,p);
+async function fbGet(p){const s=await FB.get(fbR(p));return s.exists()?s.val():null;}
+async function fbSet(p,v){await FB.set(fbR(p),v);}
+async function fbUpd(p,v){await FB.update(fbR(p),v);}
+async function fbPush(p,v){return FB.push(fbR(p),v);}
+function fbOn(p,cb){return FB.onValue(fbR(p),s=>cb(s.exists()?s.val():null));}
+
+/* ── HELPERS ── */
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function initials(n){return(n||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();}
+function showErr(id,m){const e=document.getElementById(id);e.textContent=m;e.style.display='block';}
+function hideErr(id){document.getElementById(id).style.display='none';}
+
+/* ── AUTH TABS ── */
+function authTab(t){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('on',i===(t==='login'?0:1)));
+  document.getElementById('lf').style.display=t==='login'?'block':'none';
+  document.getElementById('sf').style.display=t==='signup'?'block':'none';
+}
+
+/* ── AVATAR PREVIEW ── */
+function prevAv(inp,prevId){
+  const f=inp.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{suAv=e.target.result;document.getElementById(prevId).innerHTML=`<img src="${e.target.result}" alt="av"/>`;};
+  r.readAsDataURL(f);
+}
+
+/* ── SIGNUP ── */
+async function doSignup(){
+  const name=document.getElementById('su-n').value.trim();
+  const pass=document.getElementById('su-p').value.trim();
+  const sec=document.getElementById('su-s').value;
+  hideErr('su-e');
+  if(!name||!pass||!sec){showErr('su-e','Please fill in all fields.');return;}
+  if(name.split(' ').filter(Boolean).length<2){showErr('su-e','Enter your full name (first & last).');return;}
+  await waitFB2();
+  const key=name.toLowerCase().replace(/\s+/g,'_');
+  const ex=await fbGet('users/'+key);
+  if(ex){showErr('su-e','Name already registered. Please sign in.');return;}
+  const ud={name,pass,section:sec,avatar:suAv||null};
+  await fbSet('users/'+key,ud);
+  cu={key,...ud};suAv=null;
+  startApp();
+}
+
+/* ── LOGIN ── */
+async function doLogin(){
+  const name=document.getElementById('li-n').value.trim();
+  const pass=document.getElementById('li-p').value.trim();
+  hideErr('li-e');
+  if(!name||!pass){showErr('li-e','Please fill in all fields.');return;}
+  await waitFB2();
+  const key=name.toLowerCase().replace(/\s+/g,'_');
+  const ud=await fbGet('users/'+key);
+  if(!ud){showErr('li-e','Name not found. Please sign up first.');return;}
+  if(ud.pass!==pass){showErr('li-e','Incorrect password. Forgot it? Ask your admin.');return;}
+  cu={key,...ud};
+  startApp();
+}
+
+function waitFB2(){return new Promise(res=>waitFB(res));}
+
+function doLogout(){
+  if(chatUnsub){chatUnsub();chatUnsub=null;}
+  cu=null;curSec=null;
+  sw('auth-sc');
+  document.getElementById('li-n').value='';
+  document.getElementById('li-p').value='';
+}
+
+/* ── START APP ── */
+async function startApp(){
+  sw('app-sc');
+  const av=document.getElementById('nv-av');
+  av.innerHTML=cu.avatar?`<img src="${cu.avatar}" alt="av"/>`:initials(cu.name);
+  document.getElementById('nv-nm').textContent=cu.name;
+  document.getElementById('nv-bdg').textContent='9-'+cu.section;
+  await waitFB2();
+  const ns=await fbGet('sectionNames');
+  if(ns)secNames={...secNames,...ns};
+  refreshHome();
+}
+
+/* ── SCREEN SWITCH ── */
+function sw(id){
+  ['auth-sc','app-sc','admin-sc'].forEach(s=>{
+    const el=document.getElementById(s);
+    el.classList.remove('on');
+    el.style.display='none';
+  });
+  const target=document.getElementById(id);
+  target.style.display=id==='app-sc'?'flex':'flex';
+  target.classList.add('on');
+}
+
+/* ── HOME ── */
+function goHome(){
+  if(chatUnsub){chatUnsub();chatUnsub=null;}
+  curSec=null;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.s-tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pg-home').classList.add('on');
+  document.querySelector('.s-tab').classList.add('on');
+  refreshHome();
+}
+
+async function refreshHome(){
+  if(!FB)return;
+  for(const s of['A','B','C','D']){
+    document.getElementById('hn-'+s).textContent=secNames[s]||'Grade 9-'+s;
+    const mems=await fbGet('memories/'+s);
+    const cnt=mems?Object.keys(mems).length:0;
+    document.getElementById('hb-'+s).textContent=cnt+' memor'+(cnt===1?'y':'ies');
+  }
+}
+
+/* ── OPEN SECTION ── */
+function openSec(s){
+  if(chatUnsub){chatUnsub();chatUnsub=null;}
+  curSec=s;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.s-tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pg-sec').classList.add('on');
+  document.getElementById('st-'+s).classList.add('on');
+  document.getElementById('st-'+s).textContent='9-'+s; // always short
+
+  document.getElementById('sv-l').textContent=s;
+  document.getElementById('sv-nm').textContent=secNames[s]||'Grade 9-'+s;
+  document.getElementById('sv-sub').textContent='Section '+s+' · Batch 2025–2026';
+  innerTab('mem');
+}
+
+/* ── INNER TABS ── */
+function innerTab(t){
+  document.querySelectorAll('.in-tab').forEach((el,i)=>el.classList.toggle('on',['mem','chat'][i]===t));
+  document.getElementById('sv-mem').style.display=t==='mem'?'block':'none';
+  document.getElementById('sv-chat').style.display=t==='chat'?'block':'none';
+  if(t==='mem')loadMems();
+  if(t==='chat'){
+    const isOwn=cu&&cu.section===curSec;
+    document.getElementById('rn-zone').style.display=isOwn?'block':'none';
+    document.getElementById('rn-tab-hint').textContent='9-'+curSec;
+    document.getElementById('rn-form').style.display='none';
+    document.getElementById('rn-trigger').textContent='✏️ Rename Section';
+    loadChat();
+  }
+}
+
+/* ── RENAME ── */
+function toggleRenameForm(){
+  const f=document.getElementById('rn-form');
+  const b=document.getElementById('rn-trigger');
+  const open=f.style.display==='block';
+  f.style.display=open?'none':'block';
+  b.textContent=open?'✏️ Rename Section':'✖ Hide';
+}
+function askRenameConfirm(){
+  const val=document.getElementById('rn-input').value.trim();
+  if(!val){alert('Please type a name first.');return;}
+  pendingRename=val;
+  document.getElementById('rn-preview').textContent='"'+val+'"';
+  document.getElementById('rn-confirm').classList.add('on');
+}
+function closeRnConfirm(){document.getElementById('rn-confirm').classList.remove('on');}
+async function confirmRename(){
+  closeRnConfirm();
+  secNames[curSec]=pendingRename;
+  await fbSet('sectionNames/'+curSec,pendingRename);
+  document.getElementById('sv-nm').textContent=pendingRename;
+  document.getElementById('st-'+curSec).textContent='9-'+curSec; // nav always short
+  toggleRenameForm();
+  refreshHome();
+}
+
+/* ── MEMORIES ── */
+async function loadMems(){
+  const grid=document.getElementById('mem-grid');
+  grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ei">⏳</div><p>Loading…</p></div>';
+  const mems=await fbGet('memories/'+curSec);
+  if(!mems){grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ei">📷</div><p>No memories yet. Be the first!</p></div>';return;}
+  const list=Object.values(mems).reverse();
+  grid.innerHTML=list.map(m=>`
+    <div class="mem-card">
+      <div class="mem-img">${m.img?`<img src="${m.img}" alt="mem"/>` : '📸'}</div>
+      <div class="mem-body">
+        <h4>${esc(m.title)}</h4>
+        <p>${esc(m.desc||'')}</p>
+        <div class="mem-by">
+          <div class="mini-av">${m.avatar?`<img src="${m.avatar}" alt="av"/>`:initials(m.by)}</div>
+          ${esc(m.by)} · ${m.date}
+        </div>
+      </div>
+    </div>`).join('');
+  refreshHome();
+}
+
+function openAddMem(){
+  ['m-title','m-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('m-file').value='';
+  document.getElementById('mem-modal').classList.add('on');
+}
+function closeMemModal(){document.getElementById('mem-modal').classList.remove('on');}
+async function saveMem(){
+  const title=document.getElementById('m-title').value.trim();
+  const desc=document.getElementById('m-desc').value.trim();
+  if(!title){alert('Please enter a title.');return;}
+  const file=document.getElementById('m-file').files[0];
+  const mem={title,desc,by:cu.name,avatar:cu.avatar||null,
+    date:new Date().toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'}),img:null};
+  if(file){
+    const r=new FileReader();
+    r.onload=async e=>{mem.img=e.target.result;await fbPush('memories/'+curSec,mem);closeMemModal();loadMems();};
+    r.readAsDataURL(file);
+  } else {await fbPush('memories/'+curSec,mem);closeMemModal();loadMems();}
+}
+
+/* ── CHAT ── */
+function loadChat(){
+  if(chatUnsub){chatUnsub();chatUnsub=null;}
+  const box=document.getElementById('chat-msgs');
+  box.innerHTML='<div class="empty"><div class="ei">💬</div><p>Loading…</p></div>';
+  chatUnsub=fbOn('chats/'+curSec,msgs=>{
+    if(!msgs){box.innerHTML='<div class="empty"><div class="ei">💬</div><p>No messages yet. Say hi!</p></div>';return;}
+    const list=Object.values(msgs);
+    box.innerHTML=list.map((m,i)=>{
+      const isMe=cu&&m.by===cu.name;
+      const showAv=i===0||list[i-1].by!==m.by;
+      return `<div class="msg-row ${isMe?'me':'other'}">
+        ${!isMe?(showAv?`<div class="msg-av2">${m.avatar?`<img src="${m.avatar}" alt="av"/>`:initials(m.by)}</div>`:`<div class="msg-av-sp"></div>`):''}
+        <div class="msg-ct">
+          ${!isMe&&showAv?`<div class="msg-nm">${esc(m.by)}</div>`:''}
+          <div class="msg-bub">${esc(m.text)}</div>
+          <div class="msg-time">${m.time}</div>
+        </div>
+        ${isMe?(showAv?`<div class="msg-av2">${m.avatar?`<img src="${m.avatar}" alt="av"/>`:initials(m.by)}</div>`:`<div class="msg-av-sp"></div>`):''}
+      </div>`;
+    }).join('');
+    box.scrollTop=box.scrollHeight;
+  });
+}
+
+async function sendMsg(){
+  const inp=document.getElementById('chat-in');
+  const text=inp.value.trim();
+  if(!text||!curSec)return;
+  await fbPush('chats/'+curSec,{
+    by:cu.name,avatar:cu.avatar||null,text,
+    time:new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'})
+  });
+  inp.value='';
+}
+
+/* ── THEME ── */
+const sv=localStorage.getItem('sfa_theme')||'';
+if(sv)document.documentElement.setAttribute('data-theme',sv);
+function toggleThemePicker(){document.getElementById('t-picker').classList.toggle('on');}
+function setTheme(t){
+  document.documentElement.removeAttribute('data-theme');
+  if(t)document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('sfa_theme',t);
+  document.getElementById('t-picker').classList.remove('on');
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.nav-r'))document.getElementById('t-picker').classList.remove('on');
+});
+
+/* ── ADMIN ── */
+function showAdmin(){
+  sw('admin-sc');
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('admin-login').style.display='block';
+  document.getElementById('admin-pw').value='';
+  hideErr('admin-e');
+}
+function hideAdmin(){sw('app-sc');}
+async function adminLogin(){
+  const pw=document.getElementById('admin-pw').value.trim();
+  if(pw!==ADMIN_PW){showErr('admin-e','Incorrect admin password.');return;}
+  document.getElementById('admin-login').style.display='none';
+  document.getElementById('admin-panel').style.display='block';
+  loadAdminList();
+}
+async function loadAdminList(){
+  const list=document.getElementById('admin-list');
+  list.innerHTML='<p style="font-size:.87rem;color:var(--tx2)">Loading users…</p>';
+  const users=await fbGet('users');
+  if(!users){list.innerHTML='<p style="font-size:.87rem;color:var(--tx2)">No users yet.</p>';return;}
+  list.innerHTML=Object.entries(users).map(([k,u])=>`
+    <div class="au-row">
+      <div class="au-av">${u.avatar?`<img src="${u.avatar}" alt="av"/>`:initials(u.name)}</div>
+      <div class="au-info"><div class="aname">${esc(u.name)}</div><div class="asec">9-${u.section}</div></div>
+      <span id="rpw-${k}"></span>
+      <button class="rst-btn" onclick="resetPw('${k}','${esc(u.name)}')">Reset Password</button>
+    </div>`).join('');
+}
+async function resetPw(key,name){
+  const np='sfa'+Math.floor(1000+Math.random()*9000);
+  await fbUpd('users/'+key,{pass:np});
+  document.getElementById('rpw-'+key).innerHTML=`<span class="pw-badge">New: ${np}</span>`;
+  alert(`✅ Password for ${name} reset!\nNew password: ${np}\nTell them this password.`);
+}
+
+/* ── FORGOT ── */
+function openForgot(){document.getElementById('forgot-modal').classList.add('on');}
+function closeForgot(){document.getElementById('forgot-modal').classList.remove('on');}
+
+/* ── INIT ── */
+waitFB(async()=>{
+  const ns=await fbGet('sectionNames');
+  if(ns)secNames={...secNames,...ns};
+});
+</script>
+</body>
+</html>
